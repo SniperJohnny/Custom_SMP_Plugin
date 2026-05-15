@@ -1,0 +1,13 @@
+name: Custom_SMP_Plugin
+version: '1.0-SNAPSHOT'
+main: io.sniperjohnny.github.custom_SMP_Plugin.Custom_SMP_Plugin
+api-version: '1.21'
+
+
+commands:
+  fly:
+    permission: "smpplugin.fly"
+    description: "lets you fly"
+    aliases:
+      - flying
+      - f
