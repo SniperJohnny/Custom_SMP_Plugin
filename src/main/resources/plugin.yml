@@ -11,3 +11,18 @@ commands:
     aliases:
       - flying
       - f
+  smite:
+    permission: "smpplugin.smite"
+    description: "lets you choose who gets hit by lightning"
+    aliases:
+      - sm
+      - electrocute
+  revive:
+    permission: "smpplugin.revive"
+    description: "lets you choose who gets hit by lightning"
+    aliases:
+      - res
+      - resurrect
+  unban:
+    permission: "smpplugin.unban"
+    description: "lets you unban an Player"

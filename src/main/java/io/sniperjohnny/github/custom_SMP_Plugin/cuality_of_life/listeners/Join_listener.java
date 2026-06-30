@@ -18,6 +18,9 @@ public class Join_listener implements Listener {
         this.plugin = plugin;
     }
 
+
+
+
     @EventHandler
     public void onPlayerJoin_message_swapper(PlayerJoinEvent e){
         String join_message = this.plugin.getConfig().getString("join.message");
