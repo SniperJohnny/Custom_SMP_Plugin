@@ -1,9 +1,20 @@
 #Pls swap out this join message and leave message
 
 join.message: "Welcome &player&, thanks for joining!" #0 will be no message
+leave.message: "&player& left the server!" #0 will be no message
 
+
+#Quality of Live Dependent
 join.feed: true
 join.tpspawn: true
 join.setfullhealth: true
 join.give.speed.for.30.seconds: true
+
+
+
+
+
+
+#PvP Logic dependent
 pvp.kill_bonus_effects: true
+pvp.default_lives: 3

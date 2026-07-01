@@ -26,3 +26,10 @@ commands:
   unban:
     permission: "smpplugin.unban"
     description: "lets you unban an Player"
+  revivebeaconrecipe:
+    description: "shows the recipe for the revive beacon"
+    aliases:
+      - resrecipe
+      - reciperes
+      - reviverecipe
+      - reciperevive

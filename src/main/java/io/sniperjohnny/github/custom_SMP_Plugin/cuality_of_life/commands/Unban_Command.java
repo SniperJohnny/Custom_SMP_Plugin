@@ -1,8 +1,6 @@
 package io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands;
 
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -19,7 +17,7 @@ public class Unban_Command implements TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         String playerName = args[0];
-        BanList banList = Bukkit.getBanList(BanList.Type.PROFILE);
+        BanList banList = Bukkit.getBanList(BanList.Type.IP);
         if (!(banList.isBanned(playerName))) {
             sender.sendMessage(ChatColor.RED + "Player not found.");
             return true;
@@ -40,13 +38,24 @@ public class Unban_Command implements TabExecutor {
         List<String> completions = new ArrayList<>();
 
 
-        if(args.length == 1) {
+        if (args.length == 1) {
+            List<String> bannedNames = new ArrayList<>();
 
-            List<String> players = new ArrayList<>();
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                players.add(p.getName());
+            // 1. Loop through the ban entries (Type.NAME holds player bans)
+            for (BanEntry<?> entry : Bukkit.getBanList(BanList.Type.NAME).getEntries()) {
+                String targetName = entry.getTarget();
+
+                // 2. If you need the actual Player/OfflinePlayer object for logic:
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(targetName);
+
+                // 3. Add the name to the completion list
+                if (offlinePlayer.getName() != null) {
+                    bannedNames.add(offlinePlayer.getName());
+                }
             }
-            StringUtil.copyPartialMatches(args[1], players, completions);
+
+            StringUtil.copyPartialMatches(args[0], bannedNames, completions);
+            Collections.sort(completions);
             return completions;
         }
         return Collections.emptyList();
