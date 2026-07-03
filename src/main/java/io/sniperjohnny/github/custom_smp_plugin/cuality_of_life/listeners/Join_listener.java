@@ -1,18 +1,13 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.listeners;
+package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners;
 
-import io.sniperjohnny.github.custom_SMP_Plugin.Custom_SMP_Plugin;
-import net.kyori.adventure.text.format.TextColor;
+import io.sniperjohnny.github.custom_smp_plugin.Custom_SMP_Plugin;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import java.io.File;
 
 public class Join_listener implements Listener {
     public int Effect_time_on_join = 600;

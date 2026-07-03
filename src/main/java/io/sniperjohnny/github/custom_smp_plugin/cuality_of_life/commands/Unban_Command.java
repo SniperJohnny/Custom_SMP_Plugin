@@ -1,10 +1,9 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands;
+package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands;
 
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

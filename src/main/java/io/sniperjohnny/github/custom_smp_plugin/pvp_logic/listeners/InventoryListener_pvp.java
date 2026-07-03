@@ -1,6 +1,6 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.listeners;
+package io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners;
 
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.menu_Pvp_important.Menu_pvp;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.menu_Pvp_important.Menu_pvp;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

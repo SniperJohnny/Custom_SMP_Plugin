@@ -1,6 +1,6 @@
 name: Custom_SMP_Plugin
 version: '1.0-SNAPSHOT'
-main: io.sniperjohnny.github.custom_SMP_Plugin.Custom_SMP_Plugin
+main: io.sniperjohnny.github.custom_smp_plugin.Custom_SMP_Plugin
 api-version: '1.21'
 
 
@@ -33,3 +33,7 @@ commands:
       - reciperes
       - reviverecipe
       - reciperevive
+  lives:
+    description: lets you see your remaining lives
+    aliases:
+      - seelives

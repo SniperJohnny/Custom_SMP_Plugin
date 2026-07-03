@@ -1,15 +1,17 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.listeners;
+package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners;
 
-import io.sniperjohnny.github.custom_SMP_Plugin.Custom_SMP_Plugin;
-import net.kyori.adventure.text.format.NamedTextColor;
+import io.sniperjohnny.github.custom_smp_plugin.Custom_SMP_Plugin;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.net.http.WebSocket;
 
-public class Leave_Listener implements WebSocket.Listener {
-    Custom_SMP_Plugin plugin = new Custom_SMP_Plugin();
+public class Leave_Listener implements Listener {
+    Custom_SMP_Plugin plugin;
+    public Leave_Listener (Custom_SMP_Plugin instance) {
+        plugin = instance;
+    }
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
         String quitmessagebluprint = this.plugin.getConfig().getString("leave.message");

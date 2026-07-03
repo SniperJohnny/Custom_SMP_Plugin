@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands;
+package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class Smite_Command implements TabExecutor {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 players.add(p.getName());
             }
-            StringUtil.copyPartialMatches(args[1], players, completions);
+            StringUtil.copyPartialMatches(args[0], players, completions);
             return completions;
         }
         return Collections.emptyList();

@@ -1,13 +1,15 @@
-package io.sniperjohnny.github.custom_SMP_Plugin;
+package io.sniperjohnny.github.custom_smp_plugin;
 
-import io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands.Fly_Command;
-import io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands.Smite_Command;
-import io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.commands.Unban_Command;
-import io.sniperjohnny.github.custom_SMP_Plugin.cuality_of_life.listeners.Join_listener;
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.Commands.Revive_Beacon_recipe_shower_command;
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.Commands.Revive_Command;
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.listeners.InventoryListener_pvp;
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.listeners.Kill_Listener;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Fly_Command;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Smite_Command;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Unban_Command;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Join_listener;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Leave_Listener;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_beacon_recipe_command;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_Command;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.SeeLivesCommand;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.InventoryListener_pvp;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Kill_Listener;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,31 +50,27 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
     }
     @EventHandler
     public void playeryamlfilecreator(PlayerJoinEvent e) {
-        // Create the "players" folder if it doesn't exist
         File folder = new File(getDataFolder() + File.separator + "players");
         if (!folder.exists()) {
-            folder.mkdirs(); // mkdirs() is safer as it creates parent folders too
+            folder.mkdirs();
         }
 
-        // Create the player's specific YAML file
         File playerFile = new File(folder, e.getPlayer().getUniqueId() + ".yml");
+
+        // Check if it's a completely new player profile
         if (!playerFile.exists()) {
             try {
                 playerFile.createNewFile();
+
+                // ONLY set default stats here, inside the fresh creation block!
+                int defaultAmountOfLives = getConfig().getInt("pvp.default_lives", 3);
+                savePlayerData(e.getPlayer().getUniqueId(), "lives", defaultAmountOfLives);
+                savePlayerData(e.getPlayer().getUniqueId(), "kills", 0);
+
             } catch (IOException ex) {
                 getLogger().severe("Could not create configuration file for " + e.getPlayer().getName());
                 ex.printStackTrace();
             }
-        }
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
-        Object defaultAmountOfLives = getConfig().getInt("pvp.default_lives");
-        savePlayerData(e.getPlayer().getUniqueId(), "lives", defaultAmountOfLives);
-        savePlayerData(e.getPlayer().getUniqueId(), "kills", 0);
-        try {
-            config.save(playerFile);
-        } catch (IOException exept) {
-            getLogger().severe("Could not save data for player.");
-            exept.printStackTrace();
         }
     }
 
@@ -88,13 +86,15 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new Join_listener(this), this);
         getServer().getPluginManager().registerEvents(new Kill_Listener(this), this);
         getServer().getPluginManager().registerEvents(new InventoryListener_pvp(), this);
+        getServer().getPluginManager().registerEvents(new Leave_Listener(this), this);
 
         // Register Commands
         getCommand("fly").setExecutor(new Fly_Command());
         getCommand("smite").setExecutor(new Smite_Command());
         getCommand("unban").setExecutor(new Unban_Command());
         getCommand("revive").setExecutor(new Revive_Command());
-        getCommand("revivebeaconrecipe").setExecutor(new Revive_Beacon_recipe_shower_command());
+        getCommand("revivebeaconrecipe").setExecutor(new Revive_beacon_recipe_command());
+        getCommand("lives").setExecutor(new SeeLivesCommand(this));
 
         getLogger().info("Custom_SMP_Plugin_started");
     }

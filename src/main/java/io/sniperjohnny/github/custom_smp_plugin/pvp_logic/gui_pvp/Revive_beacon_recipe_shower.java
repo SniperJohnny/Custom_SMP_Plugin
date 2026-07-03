@@ -1,6 +1,6 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.gui_pvp;
+package io.sniperjohnny.github.custom_smp_plugin.pvp_logic.gui_pvp;
 
-import io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.menu_Pvp_important.SimpleMenu_pvp;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.menu_Pvp_important.SimpleMenu_pvp;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;

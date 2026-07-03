@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_SMP_Plugin.pvp_logic.menu_Pvp_important;
+package io.sniperjohnny.github.custom_smp_plugin.pvp_logic.menu_Pvp_important;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
