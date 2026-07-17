@@ -9,13 +9,14 @@ import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Join_l
 import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Leave_Listener;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_beacon_recipe_command;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_Command;
-import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.SeeLivesCommand;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.See_Lives_Command;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.InventoryListener_pvp;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Kill_Listener;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -42,7 +43,6 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-
     public Object getPlayerData(UUID playerUUID, String key) {
         File playerFile = new File(getDataFolder() + File.separator + "players", playerUUID + ".yml");
         YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
@@ -95,7 +95,7 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         getCommand("smite").setExecutor(new Smite_Command());
         getCommand("revive").setExecutor(new Revive_Command());
         getCommand("revivebeaconrecipe").setExecutor(new Revive_beacon_recipe_command());
-        getCommand("lives").setExecutor(new SeeLivesCommand(this));
+        getCommand("lives").setExecutor(new See_Lives_Command(this));
         if(this.getConfig().getBoolean("qol.revamp_normal_commands")) {
             getCommand("gm").setExecutor(new Gamemode_Command());
             getCommand("unban").setExecutor(new Unban_Command());
