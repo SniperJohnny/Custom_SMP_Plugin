@@ -1,5 +1,7 @@
 package io.sniperjohnny.github.custom_smp_plugin;
 
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Enchant_Command;
+import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Gamemode_Command;
 import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Fly_Command;
 import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Smite_Command;
 import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Unban_Command;
@@ -91,10 +93,14 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         // Register Commands
         getCommand("fly").setExecutor(new Fly_Command());
         getCommand("smite").setExecutor(new Smite_Command());
-        getCommand("unban").setExecutor(new Unban_Command());
         getCommand("revive").setExecutor(new Revive_Command());
         getCommand("revivebeaconrecipe").setExecutor(new Revive_beacon_recipe_command());
         getCommand("lives").setExecutor(new SeeLivesCommand(this));
+        if(this.getConfig().getBoolean("qol.revamp_normal_commands")) {
+            getCommand("gm").setExecutor(new Gamemode_Command());
+            getCommand("unban").setExecutor(new Unban_Command());
+            getCommand("enchant").setExecutor(new Enchant_Command());
+        }
 
         getLogger().info("Custom_SMP_Plugin_started");
     }

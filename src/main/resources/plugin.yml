@@ -5,6 +5,16 @@ api-version: '1.21'
 
 
 commands:
+  enchant:
+    permission: "smpplugin.enchant"
+    description: "enchants the item in your mainhand"
+    aliases:
+      - e
+  gm:
+    permission: "smpplugin.gamemode"
+    description: "lets you do /gm1- 1 for creative and so on."
+    aliases:
+      - gamemode
   fly:
     permission: "smpplugin.fly"
     description: "lets you fly"

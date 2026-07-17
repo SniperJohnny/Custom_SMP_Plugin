@@ -21,7 +21,7 @@ public class Smite_Command implements TabExecutor {
         if(!(sender instanceof final Player p))
         {
          sender.sendMessage("You need to be an Player to use this Command.");
-         ;
+
         return true;
 
         }

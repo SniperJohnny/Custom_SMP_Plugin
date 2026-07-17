@@ -3,6 +3,7 @@
 join.message: "Welcome &player&, thanks for joining!" #0 will be no message
 leave.message: "&player& left the server!" #0 will be no message
 
+qol.revamp_normal_commands: true #if false then you wont have /unban or /gm 1 or /gamemode 1 as it was back then
 
 #Quality of Live Dependent
 join.feed: true
