@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands;
+package io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -111,7 +111,7 @@ public class Gamemode_Command implements TabExecutor {
         List<String> completions = new ArrayList<>();
 
         if(args.length == 1) {
-            StringUtil.copyPartialMatches(args[2], List.of("0", "1","2",
+            StringUtil.copyPartialMatches(args[0], List.of("0", "1","2",
                     "3", "survival", "creative", "adventure", "spectator"), completions);
             return completions;
         }
@@ -121,7 +121,7 @@ public class Gamemode_Command implements TabExecutor {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 players.add(p.getName());
             }
-            StringUtil.copyPartialMatches(args[0], players, completions);
+            StringUtil.copyPartialMatches(args[1], players, completions);
             return completions;
         }
         return Collections.emptyList();

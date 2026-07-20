@@ -1,22 +1,21 @@
 package io.sniperjohnny.github.custom_smp_plugin;
 
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Enchant_Command;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Gamemode_Command;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Fly_Command;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Smite_Command;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands.Unban_Command;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Join_listener;
-import io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners.Leave_Listener;
-import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_beacon_recipe_command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands.Enchant_Command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands.Gamemode_Command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands.Fly_Command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands.Smite_Command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands.Unban_Command;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.listeners.Join_listener;
+import io.sniperjohnny.github.custom_smp_plugin.quality_of_life.listeners.Leave_Listener;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_beacon_recipe_commands;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_Command;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.See_Lives_Command;
-import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.InventoryListener_pvp;
+import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Inventory_Listener_pvp;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Kill_Listener;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -87,14 +86,14 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this); // Registers THIS class for the event
         getServer().getPluginManager().registerEvents(new Join_listener(this), this);
         getServer().getPluginManager().registerEvents(new Kill_Listener(this), this);
-        getServer().getPluginManager().registerEvents(new InventoryListener_pvp(), this);
+        getServer().getPluginManager().registerEvents(new Inventory_Listener_pvp(), this);
         getServer().getPluginManager().registerEvents(new Leave_Listener(this), this);
 
         // Register Commands
         getCommand("fly").setExecutor(new Fly_Command());
         getCommand("smite").setExecutor(new Smite_Command());
         getCommand("revive").setExecutor(new Revive_Command());
-        getCommand("revivebeaconrecipe").setExecutor(new Revive_beacon_recipe_command());
+        getCommand("revivebeaconrecipe").setExecutor(new Revive_beacon_recipe_commands());
         getCommand("lives").setExecutor(new See_Lives_Command(this));
         if(this.getConfig().getBoolean("qol.revamp_normal_commands")) {
             getCommand("gm").setExecutor(new Gamemode_Command());

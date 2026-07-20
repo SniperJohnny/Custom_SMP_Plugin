@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.listeners;
+package io.sniperjohnny.github.custom_smp_plugin.quality_of_life.listeners;
 
 import io.sniperjohnny.github.custom_smp_plugin.Custom_SMP_Plugin;
 import org.bukkit.ChatColor;

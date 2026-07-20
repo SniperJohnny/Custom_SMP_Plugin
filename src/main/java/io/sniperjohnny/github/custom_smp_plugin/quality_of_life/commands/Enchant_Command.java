@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands;
+package io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;

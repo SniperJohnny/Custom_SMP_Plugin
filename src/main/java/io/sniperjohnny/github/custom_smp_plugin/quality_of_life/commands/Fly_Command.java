@@ -1,4 +1,4 @@
-package io.sniperjohnny.github.custom_smp_plugin.cuality_of_life.commands;
+package io.sniperjohnny.github.custom_smp_plugin.quality_of_life.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
