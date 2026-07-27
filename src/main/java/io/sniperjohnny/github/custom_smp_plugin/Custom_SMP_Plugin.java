@@ -12,67 +12,51 @@ import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.Revive_Comman
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.commands.See_Lives_Command;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Inventory_Listener_pvp;
 import io.sniperjohnny.github.custom_smp_plugin.pvp_logic.listeners.Kill_Listener;
-import org.bukkit.configuration.file.YamlConfiguration;
+import io.sniperjohnny.github.custom_smp_plugin.yaml.YamlPlayerCreator;
+import io.sniperjohnny.github.custom_smp_plugin.yaml.YamlSaveDataCreator;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
+import java.util.function.Function;
 
 public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
     private static Custom_SMP_Plugin instance = null;
+    
+    private YamlPlayerCreator yamlPlayerCreator;
+    private YamlSaveDataCreator yamlSaveDataCreator;
+
+    public YamlPlayerCreator getYamlPlayerCreator() {
+        return yamlPlayerCreator;
+    }
+
+    public YamlSaveDataCreator getYamlSaveDataCreator() {
+        return yamlSaveDataCreator;
+    }
+
     public void savePlayerData(UUID playerUUID, String key, Object value) {
-        // Locate the player's file
-        File playerFile = new File(getDataFolder() + File.separator + "players", playerUUID + ".yml");
-
-        // Load the YAML configuration from that file
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
-
-        // Set the data (e.g., "kills", 10)
-        config.set(key, value);
-
-        // Save the changes back to the disk
-        try {
-            config.save(playerFile);
-        } catch (IOException e) {
-            getLogger().severe("Could not save data for player " + playerUUID);
-            e.printStackTrace();
-        }
+        yamlSaveDataCreator.savePlayerData(playerUUID, key, value);
     }
+
+    public void savePlayerData(Player player, String key, Object value) {
+        yamlSaveDataCreator.savePlayerData(player, key, value);
+    }
+
     public Object getPlayerData(UUID playerUUID, String key) {
-        File playerFile = new File(getDataFolder() + File.separator + "players", playerUUID + ".yml");
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(playerFile);
-
-        // Returns the value, or null if it doesn't exist
-        return config.get(key);
+        return yamlSaveDataCreator.getPlayerData(playerUUID, key);
     }
+
+    public Object getPlayerData(Player player, String key) {
+        return yamlSaveDataCreator.getPlayerData(player, key);
+    }
+
     @EventHandler
-    public void playeryamlfilecreator(PlayerJoinEvent e) {
-        File folder = new File(getDataFolder() + File.separator + "players");
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        File playerFile = new File(folder, e.getPlayer().getUniqueId() + ".yml");
-
-        // Check if it's a completely new player profile
-        if (!playerFile.exists()) {
-            try {
-                playerFile.createNewFile();
-
-                // ONLY set default stats here, inside the fresh creation block!
-                int defaultAmountOfLives = getConfig().getInt("pvp.default_lives", 3);
-                savePlayerData(e.getPlayer().getUniqueId(), "lives", defaultAmountOfLives);
-                savePlayerData(e.getPlayer().getUniqueId(), "kills", 0);
-
-            } catch (IOException ex) {
-                getLogger().severe("Could not create configuration file for " + e.getPlayer().getName());
-                ex.printStackTrace();
-            }
-        }
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        yamlPlayerCreator.createPlayerFileIfNotExists(e.getPlayer());
     }
 
     @Override
@@ -82,8 +66,24 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         // Save default config
         saveDefaultConfig();
 
+        // Initialize YAML creators with configurable defaults
+        int defaultLives = getConfig().getInt("pvp.default_lives", 3);
+        int defaultKills = getConfig().getInt("pvp.default_kills", 0);
+        
+        this.yamlPlayerCreator = new YamlPlayerCreator.Builder(this)
+            .playersFolderName("players")
+            .defaultLives(defaultLives)
+            .defaultKills(defaultKills)
+            .build();
+        
+        this.yamlSaveDataCreator = new YamlSaveDataCreator.Builder(this)
+            .playersFolder("Players")
+            .saveLogger((uuid, key) -> getLogger().fine("Saved " + key + " for player " + uuid))
+            .errorHandler(e -> getLogger().severe("Failed to save player data: " + e.getMessage()))
+            .build();
+
         // Register Events
-        getServer().getPluginManager().registerEvents(this, this); // Registers THIS class for the event
+        getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(new Join_listener(this), this);
         getServer().getPluginManager().registerEvents(new Kill_Listener(this), this);
         getServer().getPluginManager().registerEvents(new Inventory_Listener_pvp(), this);
