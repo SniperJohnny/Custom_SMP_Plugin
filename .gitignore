@@ -4,8 +4,13 @@
 *.iml
 *.ipr
 *.iws
-
+#files i want not being send
 .mimocode
+
+
+
+
+
 # IntelliJ
 out/
 # mpeltonen/sbt-idea plugin
