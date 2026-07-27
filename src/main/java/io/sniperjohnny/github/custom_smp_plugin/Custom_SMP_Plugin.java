@@ -39,19 +39,19 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
     }
 
     public void savePlayerData(UUID playerUUID, String key, Object value) {
-        yamlSaveDataCreator.savePlayerData(playerUUID, key, value);
+        yamlSaveDataCreator.saveData(playerUUID.toString(), key, value);
     }
 
     public void savePlayerData(Player player, String key, Object value) {
-        yamlSaveDataCreator.savePlayerData(player, key, value);
+        yamlSaveDataCreator.saveData(player.getUniqueId().toString(), key, value);
     }
 
     public Object getPlayerData(UUID playerUUID, String key) {
-        return yamlSaveDataCreator.getPlayerData(playerUUID, key);
+        return yamlSaveDataCreator.getData(playerUUID.toString(), key);
     }
 
     public Object getPlayerData(Player player, String key) {
-        return yamlSaveDataCreator.getPlayerData(player, key);
+        return yamlSaveDataCreator.getData(player.getUniqueId().toString(), key);
     }
 
     @EventHandler
@@ -71,14 +71,14 @@ public final class Custom_SMP_Plugin extends JavaPlugin implements Listener {
         int defaultKills = getConfig().getInt("pvp.default_kills", 0);
         
         this.yamlPlayerCreator = new YamlPlayerCreator.Builder(this)
-            .playersFolderName("players")
+            .playersFolder("players")
             .defaultLives(defaultLives)
             .defaultKills(defaultKills)
             .build();
         
         this.yamlSaveDataCreator = new YamlSaveDataCreator.Builder(this)
-            .playersFolder("Players")
-            .saveLogger((uuid, key) -> getLogger().fine("Saved " + key + " for player " + uuid))
+            .dataFolder("players")
+            .saveLogger((fileName, key) -> getLogger().fine("Saved " + key + " for " + fileName))
             .errorHandler(e -> getLogger().severe("Failed to save player data: " + e.getMessage()))
             .build();
 
