@@ -28,12 +28,17 @@ public class See_Lives_Command implements TabExecutor {
             sender.sendMessage("Only Players can execute this command!");
             return true;
         }
+        if(args.length == 0) {
+            Object currentLivesObj = plugin.getPlayerData(p.getUniqueId(), "lives");
+            p.sendMessage(currentLivesObj.toString() + " lives remaining!");
+            return true;
+        }
         if(!(p.hasPermission("pvp.seeotherplayerslives"))) {
             if(!(p.isOp())) {
-                Object currentLivesObj = plugin.getPlayerData(p.getUniqueId(), "lives");
-                p.sendMessage(currentLivesObj.toString() + " lives remaining!");
+                p.sendMessage(ChatColor.DARK_RED +"You are not allowed to see the remaining lives of other players");
                 return true;
             }
+
         }
         String playerName = args[0];
         Player target = Bukkit.getPlayerExact(playerName);
@@ -42,7 +47,7 @@ public class See_Lives_Command implements TabExecutor {
             return true;
         }
         Object currentLivesObjothers = plugin.getPlayerData(target.getUniqueId(), "lives");
-        p.sendMessage(args[0].toString() + "has" + currentLivesObjothers.toString() + "lives Remaining");
+        p.sendMessage(args[0].toString() + " has " + currentLivesObjothers.toString() + " lives Remaining!");
         return true;
     }
     @Override
